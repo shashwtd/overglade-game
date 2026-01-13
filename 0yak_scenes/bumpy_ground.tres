@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dspb48gnpqxx0"]
+
+[ext_resource type="Shader" uid="uid://0w5wpvw01g5y" path="res://0yak__assets/shaders/spatial.gdshader" id="1_mt14s"]
+[ext_resource type="Texture2D" uid="uid://dfd8yelognkpg" path="res://0yak__assets/textures/153_artificial green grass texture-seamless.jpg" id="2_tkopi"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_mt14s")
+shader_parameter/albedo_texture = ExtResource("2_tkopi")
+shader_parameter/height_scale = 1.8
+shader_parameter/noise_scale = 0.13
+shader_parameter/uv_scale = 58.675

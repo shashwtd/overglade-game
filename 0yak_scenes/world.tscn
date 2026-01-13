@@ -1,26 +1,28 @@
-[gd_scene load_steps=9 format=3 uid="uid://dj67c7fksx5vg"]
+[gd_scene load_steps=8 format=3 uid="uid://dj67c7fksx5vg"]
 
-[ext_resource type="Texture2D" uid="uid://bf016as7dgq1a" path="res://0yak__assets/textures/Ground020_1K-JPG_Color.jpg" id="2_ooxyy"]
+[ext_resource type="Material" uid="uid://dspb48gnpqxx0" path="res://0yak_scenes/bumpy_ground.tres" id="2_ooxyy"]
 [ext_resource type="PackedScene" uid="uid://btc1nikv64jww" path="res://0yak_scenes/player.tscn" id="2_vjc5l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gv5m4"]
 size = Vector3(50, 1, 50)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gv5m4"]
-size = Vector2(80, 80)
+size = Vector2(100, 100)
+subdivide_width = 200
+subdivide_depth = 200
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gv5m4"]
-albedo_texture = ExtResource("2_ooxyy")
-uv1_scale = Vector3(4.48, 4.48, 4.48)
-
-[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_gv5m4"]
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_vjc5l"]
 
 [sub_resource type="Sky" id="Sky_gv5m4"]
-sky_material = SubResource("PhysicalSkyMaterial_gv5m4")
+sky_material = SubResource("PhysicalSkyMaterial_vjc5l")
 
 [sub_resource type="Environment" id="Environment_gv5m4"]
 background_mode = 2
 sky = SubResource("Sky_gv5m4")
+fog_enabled = true
+fog_light_energy = 0.26
+fog_sun_scatter = 0.05
+fog_density = 0.02
 
 [node name="World" type="Node3D"]
 
@@ -35,11 +37,11 @@ shape = SubResource("BoxShape3D_gv5m4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 mesh = SubResource("PlaneMesh_gv5m4")
-surface_material_override/0 = SubResource("StandardMaterial3D_gv5m4")
+surface_material_override/0 = ExtResource("2_ooxyy")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 30, 0)
-light_energy = 1.2
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 30, 0)
+light_energy = 2.223
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_gv5m4")
