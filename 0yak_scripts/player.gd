@@ -1,27 +1,53 @@
 extends CharacterBody3D
 
+@export var speed := 6.0
+@export var jump_velocity := 4.5
 
-const SPEED = 4.0
-const JUMP_VELOCITY = 3.5
+@onready var brute: Node3D = $Brute
+@onready var camera: Camera3D = $CameraPivot/SpringArm3D/Camera3D
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	# Gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	# INPUT (WASD)
+	var input_vec: Vector2 = Vector2(
+		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+		Input.get_action_strength("move_forward") - Input.get_action_strength("move_back")
+	)
 
-	# Get the input direction and handle the movement/deceleration.
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+	# CAMERA-RELATIVE MOVEMENT
+	var cam_basis: Basis = camera.global_transform.basis
+	var forward: Vector3 = -cam_basis.z
+	var right: Vector3 = cam_basis.x
+
+	forward.y = 0
+	right.y = 0
+	forward = forward.normalized()
+	right = right.normalized()
+
+	var direction: Vector3 = right * input_vec.x + forward * input_vec.y
+
+	if direction.length() > 0.0:
+		direction = direction.normalized()
+
+		# Move
+		velocity.x = direction.x * speed
+		velocity.z = direction.z * speed
+
+		# Rotate brute to face movement
+		brute.rotation.y = lerp_angle(
+			brute.rotation.y,
+			atan2(direction.x, direction.z),
+			10.0 * delta
+		)
 	else:
-		velocity.x = move_toward(velocity.x, direction.x * SPEED, 10 * delta)
-		velocity.z = move_toward(velocity.z, direction.z * SPEED, 10 * delta)
+		velocity.x = move_toward(velocity.x, 0.0, speed)
+		velocity.z = move_toward(velocity.z, 0.0, speed)
 
+	# Jump
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = jump_velocity
 
 	move_and_slide()

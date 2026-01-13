@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dj67c7fksx5vg"]
+[gd_scene load_steps=8 format=3 uid="uid://dj67c7fksx5vg"]
 
+[ext_resource type="PackedScene" uid="uid://dplip0v6dowao" path="res://terrain_for_yakooza.glb" id="2_ooxyy"]
 [ext_resource type="PackedScene" uid="uid://btc1nikv64jww" path="res://0yak_scenes/player.tscn" id="2_vjc5l"]
-[ext_resource type="PackedScene" uid="uid://bavkwhana570n" path="res://0yak__assets/terrain_for_yakooza.glb" id="3_ooxyy"]
+[ext_resource type="Texture2D" uid="uid://qy8cs7r0ugxb" path="res://0yak__assets/textures/aerial_rocks_01_diff_1k.jpg" id="3_ooxyy"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_vjc5l"]
 
@@ -16,10 +17,15 @@ fog_light_energy = 0.26
 fog_sun_scatter = 0.05
 fog_density = 0.02
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vjc5l"]
+albedo_color = Color(0.927006, 1, 0.96136, 1)
+albedo_texture = ExtResource("3_ooxyy")
+uv1_scale = Vector3(120, 120, 120)
+
 [node name="World" type="Node3D"]
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("2_vjc5l")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.153687, 8.37021, 0.421283)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.153687, 8.34802, 0.421283)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 30, 0)
@@ -28,5 +34,11 @@ light_energy = 2.223
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_gv5m4")
 
-[node name="terrain_for_yakooza" parent="." instance=ExtResource("3_ooxyy")]
-transform = Transform3D(60, 0, 0, 0, 40, 0, 0, 0, 60, 0, 0, 0)
+[node name="terrain_for_yakooza" parent="." instance=ExtResource("2_ooxyy")]
+transform = Transform3D(65, 0, 0, 0, 45, 0, 0, 0, 65, 0, 0, 0)
+
+[node name="Landscape_010" parent="terrain_for_yakooza" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0547691, 0)
+material_override = SubResource("StandardMaterial3D_vjc5l")
+
+[editable path="terrain_for_yakooza"]
