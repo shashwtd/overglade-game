@@ -27,7 +27,7 @@ float noise(vec2 p) {
 
 void vertex() {
 	float n = noise(VERTEX.xz * noise_scale);
-	VERTEX.y += n * height_scale;
+	//VERTEX.y += n * height_scale;
 }
 
 void fragment() {
