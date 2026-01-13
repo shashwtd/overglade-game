@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Overglaze-game"
+run/main_scene="uid://dj67c7fksx5vg"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
 
 [editor_plugins]
 
