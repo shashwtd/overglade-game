@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://btc1nikv64jww"]
 
-[ext_resource type="Script" uid="uid://cf2aa2462xmtn" path="res://0yak_scripts/player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://cf2aa2462xmtn" path="res://0yak_scripts/character_controller_blendspace2d.gd" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://ci13drxhj3n88" path="res://0yak_scenes/brute.tscn" id="2_hgpkt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
