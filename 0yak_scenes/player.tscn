@@ -20,12 +20,12 @@ physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 0.994542, 0.104338, 0, -0.104338, 0.994542, 0, 1.6, 0)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
-spring_length = 3.5
-margin = 0.2
+spring_length = 3.0
+margin = 2.0
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
 physics_interpolation_mode = 2
-transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 2.42715, 3.92468)
+transform = Transform3D(1, 0, 0, 0, 0.995618, 0.0935172, 0, -0.0935172, 0.995618, 0, 0.414001, 1.70903)
 
 [node name="Brute" parent="." instance=ExtResource("2_hgpkt")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
