@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdaportfq2i1v"
-path.s3tc="res://.godot/imported/Brute_10.png-3e6e37386fad0425cf4f97daee4c1aa0.s3tc.ctex"
+uid="uid://d1ebr0a3dt7f7"
+path.s3tc="res://.godot/imported/brute_10.png-5059cc871203928c07e63bc8e271230e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://0yak__assets/brute character/Brute_10.png"
-dest_files=["res://.godot/imported/Brute_10.png-3e6e37386fad0425cf4f97daee4c1aa0.s3tc.ctex"]
+source_file="res://0yak__assets/brute character/brute_10.png"
+dest_files=["res://.godot/imported/brute_10.png-5059cc871203928c07e63bc8e271230e.s3tc.ctex"]
 
 [params]
 

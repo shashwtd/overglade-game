@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b1ob44t5784jf"
-path="res://.godot/imported/Brute.glb-8d9aba244bec44fe272442c5f33e9b25.scn"
+uid="uid://bgbnyf7mpd1d8"
+path="res://.godot/imported/brute.glb-9d63e3537770a8bc90da40534bee08c5.scn"
 
 [deps]
 
-source_file="res://0yak__assets/brute character/Brute.glb"
-dest_files=["res://.godot/imported/Brute.glb-8d9aba244bec44fe272442c5f33e9b25.scn"]
+source_file="res://0yak__assets/brute character/brute.glb"
+dest_files=["res://.godot/imported/brute.glb-9d63e3537770a8bc90da40534bee08c5.scn"]
 
 [params]
 

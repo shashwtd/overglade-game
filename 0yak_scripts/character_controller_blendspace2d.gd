@@ -1,7 +1,10 @@
 extends CharacterBody3D
 
-@export var speed := 6.0
-@export var jump_velocity := 4.5
+# Character Controller - FIXED for your setup
+# BlendSpace2D path: parameters/BlendSpace2D/blend_position
+
+@export var speed: float = 6.0
+@export var jump_velocity: float = 4.5
 
 @onready var brute: Node3D = $Brute
 @onready var camera: Camera3D = $CameraPivot/SpringArm3D/Camera3D
@@ -9,58 +12,73 @@ extends CharacterBody3D
 @onready var anim_player: AnimationPlayer = $Brute/AnimationPlayer
 
 func _ready():
-	anim_tree.active = true
+	print("=== Character Controller Starting ===")
 	
-	# Disable root motion on all animations to prevent sliding
+	# Make animations loop
 	if anim_player:
 		for anim_name in anim_player.get_animation_list():
-			var animation = anim_player.get_animation(anim_name)
-			
-			# Set walk/run/idle animations to loop
-			if "walk" in anim_name.to_lower() or "run" in anim_name.to_lower() or "idle" in anim_name.to_lower():
+			var animation: Animation = anim_player.get_animation(anim_name)
+			var name_lower: String = anim_name.to_lower()
+			if "walk" in name_lower or "idle" in name_lower:
 				animation.loop_mode = Animation.LOOP_LINEAR
-				print("Set ", anim_name, " to loop")
-			
-			# Disable position tracks that cause sliding
-			for track_idx in range(animation.get_track_count()):
-				var track_path = animation.track_get_path(track_idx)
-				var path_string = str(track_path).to_lower()
-				
-				# Check if this is a position track on the root/armature
-				if "position" in path_string:
-					var node_name = track_path.get_name(0)
-					# Disable root-level position tracks
-					if node_name in ["Armature", ".", "Skeleton3D", "Brute", "RootNode"]:
-						print("Disabling position track in ", anim_name, ": ", track_path)
-						animation.track_set_enabled(track_idx, false)
+		print("✓ Animations set to loop")
 	
-	print("✓ BlendSpace2D movement system ready")
-	print("✓ Root motion disabled - movement is now velocity-based only")
+	# Activate AnimationTree
+	if anim_tree:
+		anim_tree.active = true
+		print("✓ AnimationTree activated")
+	
+	# Fix root motion
+	fix_root_motion()
+	
+	print("✓ Ready!")
+
+func fix_root_motion():
+	"""Disable root position tracks to prevent sliding"""
+	if not anim_player:
+		return
+	
+	var fixed_count: int = 0
+	for anim_name in anim_player.get_animation_list():
+		var name_lower: String = anim_name.to_lower()
+		if "walk" in name_lower or "turn" in name_lower:
+			var animation: Animation = anim_player.get_animation(anim_name)
+			for track_idx in range(animation.get_track_count()):
+				var track_path: NodePath = animation.track_get_path(track_idx)
+				var path_str: String = str(track_path)
+				if ":position" in path_str:
+					var node_name: String = track_path.get_name(0)
+					if node_name in ["Armature", ".", "Skeleton3D", "Brute", "RootNode", "GeneralSkeleton"]:
+						animation.track_set_enabled(track_idx, false)
+						fixed_count += 1
+	
+	if fixed_count > 0:
+		print("✓ Disabled ", fixed_count, " root motion tracks")
 
 func _physics_process(delta: float) -> void:
 	# Gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# INPUT - camera-relative
-	var input_strafe := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	var input_forward := Input.get_action_strength("move_forward") - Input.get_action_strength("move_back")
+	# Get input
+	var input_right: float = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	var input_forward: float = Input.get_action_strength("move_forward") - Input.get_action_strength("move_back")
 	
-	var input_vec := Vector2(input_strafe, input_forward)
+	# Blend position for BlendSpace2D
+	var blend_position: Vector2 = Vector2(input_right, input_forward)
 
-	# CAMERA-RELATIVE MOVEMENT
-	var cam_basis := camera.global_transform.basis
-	var cam_forward := -cam_basis.z
-	var cam_right := cam_basis.x
+	# Camera-relative movement
+	var cam_basis: Basis = camera.global_transform.basis
+	var cam_forward: Vector3 = -cam_basis.z
+	var cam_right: Vector3 = cam_basis.x
 	cam_forward.y = 0
 	cam_right.y = 0
 	cam_forward = cam_forward.normalized()
 	cam_right = cam_right.normalized()
 
-	# Calculate world-space movement direction
-	var move_dir := cam_right * input_strafe + cam_forward * input_forward
+	var move_dir: Vector3 = cam_right * input_right + cam_forward * input_forward
 	
-	# Apply movement (this is the ONLY thing that moves the character)
+	# Apply movement
 	if move_dir.length() > 0.01:
 		move_dir = move_dir.normalized()
 		velocity.x = move_dir.x * speed
@@ -69,12 +87,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0.0, speed)
 		velocity.z = move_toward(velocity.z, 0.0, speed)
 
-	# UPDATE BLENDSPACE2D
-	# The blend position controls which animations blend together
-	# X-axis: -1 (left) to +1 (right)
-	# Y-axis: -1 (back) to +1 (forward)
-	# Center (0,0): idle
-	anim_tree.set("parameters/movement_blend/blend_position", input_vec)
+	# UPDATE BLENDSPACE2D - Using YOUR correct parameter path!
+	anim_tree.set("parameters/BlendSpace2D/blend_position", blend_position)
 
 	# Jump
 	if Input.is_action_just_pressed("jump") and is_on_floor():

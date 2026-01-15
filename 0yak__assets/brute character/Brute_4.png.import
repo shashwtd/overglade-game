@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3m7ovfxl04c4"
-path.s3tc="res://.godot/imported/Brute_4.png-6711a66ce1336b8cc700ca956c3e1fe9.s3tc.ctex"
+uid="uid://mt2stt1svkbw"
+path.s3tc="res://.godot/imported/brute_4.png-6931eb8e1564d7028694a0441db61b07.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://0yak__assets/brute character/Brute_4.png"
-dest_files=["res://.godot/imported/Brute_4.png-6711a66ce1336b8cc700ca956c3e1fe9.s3tc.ctex"]
+source_file="res://0yak__assets/brute character/brute_4.png"
+dest_files=["res://.godot/imported/brute_4.png-6931eb8e1564d7028694a0441db61b07.s3tc.ctex"]
 
 [params]
 
@@ -28,7 +28,7 @@ compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=1
-roughness/src_normal="res://0yak__assets/brute character/Brute_4.png"
+roughness/src_normal="res://0yak__assets/brute character/brute_4.png"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

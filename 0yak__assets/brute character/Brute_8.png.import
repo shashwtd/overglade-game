@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpgvw50x51b4c"
-path.s3tc="res://.godot/imported/Brute_8.png-c2e259e966e7dced48c7bac0546799f8.s3tc.ctex"
+uid="uid://prr4ax2c266e"
+path.s3tc="res://.godot/imported/brute_8.png-0419a51868cb9641c835bce54663da2c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "b28023c11594c1f1d86e1aa2eaf309e5"
+"md5": "89987a37e7445f115612e49e8d19991e"
 }
 
 [deps]
 
-source_file="res://0yak__assets/brute character/Brute_8.png"
-dest_files=["res://.godot/imported/Brute_8.png-c2e259e966e7dced48c7bac0546799f8.s3tc.ctex"]
+source_file="res://0yak__assets/brute character/brute_8.png"
+dest_files=["res://.godot/imported/brute_8.png-0419a51868cb9641c835bce54663da2c.s3tc.ctex"]
 
 [params]
 
