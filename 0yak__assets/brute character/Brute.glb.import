@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/brute.glb-9d63e3537770a8bc90da40534bee08c5.sc
 
 [params]
 
-nodes/root_type="Node"
+nodes/root_type="Node3D"
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
