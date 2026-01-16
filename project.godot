@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Overglaze-game"
+config/name="Overglade-game"
 run/main_scene="uid://dj67c7fksx5vg"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
