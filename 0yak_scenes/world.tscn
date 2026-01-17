@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dj67c7fksx5vg"]
+[gd_scene load_steps=12 format=3 uid="uid://dj67c7fksx5vg"]
 
 [ext_resource type="PackedScene" uid="uid://dplip0v6dowao" path="res://terrain_for_yakooza.glb" id="2_ooxyy"]
 [ext_resource type="PackedScene" uid="uid://btc1nikv64jww" path="res://0yak_scenes/player.tscn" id="2_vjc5l"]
@@ -6,18 +6,34 @@
 [ext_resource type="Script" uid="uid://csrvtf51kjl3m" path="res://0yak_scripts/tree_scatter.gd" id="4_s044s"]
 [ext_resource type="PackedScene" uid="uid://cmstox0jy7qg7" path="res://0yak_scenes/low_poly_tree.tscn" id="5_1qxj7"]
 
-[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_vjc5l"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1qxj7"]
+noise_type = 2
+seed = 18
+frequency = 0.0162
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1qxj7"]
+in_3d_space = true
+seamless = true
+normalize = false
+noise = SubResource("FastNoiseLite_1qxj7")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1qxj7"]
+sky_top_color = Color(0.201606, 0.439497, 0.793403, 1)
+sky_horizon_color = Color(0.38157, 0.714966, 0.760234, 1)
+sky_cover = SubResource("NoiseTexture2D_1qxj7")
+sun_angle_max = 11.59
 
 [sub_resource type="Sky" id="Sky_gv5m4"]
-sky_material = SubResource("PhysicalSkyMaterial_vjc5l")
+sky_material = SubResource("ProceduralSkyMaterial_1qxj7")
 
 [sub_resource type="Environment" id="Environment_gv5m4"]
 background_mode = 2
 sky = SubResource("Sky_gv5m4")
-fog_enabled = true
-fog_light_energy = 0.26
-fog_sun_scatter = 0.05
-fog_density = 0.02
+ambient_light_source = 3
+ambient_light_color = Color(0.970016, 0.970016, 0.970016, 1)
+ambient_light_energy = 2.1
+tonemap_white = 9.06
+fog_sky_affect = 0.585
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vjc5l"]
 albedo_color = Color(0.247059, 0.364706, 0.145098, 1)
@@ -29,8 +45,8 @@ uv1_scale = Vector3(120, 120, 120)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.153687, 8.34802, 0.421283)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 30, -82.2036)
-light_energy = 2.257
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 0, 0)
+light_energy = 2.635
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_gv5m4")
