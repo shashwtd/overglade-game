@@ -27,8 +27,8 @@ uv1_scale = Vector3(120, 120, 120)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.153687, 8.34802, 0.421283)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 30, 0)
-light_energy = 2.223
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 30, -82.2036)
+light_energy = 2.257
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_gv5m4")
