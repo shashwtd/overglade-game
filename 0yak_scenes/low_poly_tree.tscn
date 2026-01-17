@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmstox0jy7qg7"]
+
+[ext_resource type="ArrayMesh" uid="uid://bsmwenw70leif" path="res://0yak__assets/low_poly_tree/Lowpoly_tree_sample.obj" id="1_es7w3"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="LowpolyTreeSample" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.12, 0)
+mesh = ExtResource("1_es7w3")
