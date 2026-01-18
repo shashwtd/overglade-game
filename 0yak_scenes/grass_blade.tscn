@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ss551u85c5xo"]
+
+[ext_resource type="PackedScene" uid="uid://c2jvw0hq85efd" path="res://0yak__assets/stylizedGrassMeshes/grass.glb" id="1_sqxdh"]
+[ext_resource type="Shader" uid="uid://b3puteaiai0nt" path="res://grass.gdshader" id="2_tw8ws"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q78s0"]
+render_priority = 0
+shader = ExtResource("2_tw8ws")
+shader_parameter/color = Color(4.33177e-07, 0.764724, 0.403662, 1)
+shader_parameter/color2 = Color(0, 0.396078, 0, 1)
+shader_parameter/noiseScale = 20.0
+shader_parameter/wind_strength = 0.08
+shader_parameter/wind_speed = 2.0
+
+[node name="grass" instance=ExtResource("1_sqxdh")]
+
+[node name="Plane_001" parent="." index="0"]
+transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0, 0, 0)
+surface_material_override/0 = SubResource("ShaderMaterial_q78s0")
