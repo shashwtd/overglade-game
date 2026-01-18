@@ -18,14 +18,14 @@ shape = SubResource("CapsuleShape3D_sh265")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 physics_interpolation_mode = 2
-transform = Transform3D(1, 0, 0, 0, 0.994542, 0.104338, 0, -0.104338, 0.994542, 0.657072, 1.6, 1.76666e-15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38906, 1.86146, -1.37343)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
 spring_length = 3.0
 margin = 0.2
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
-transform = Transform3D(0.967793, 0, -0.251748, 0.0219413, 0.996194, 0.0843486, 0.25079, -0.0871557, 0.96411, 1.18951, 0.786393, 2.37036)
+transform = Transform3D(1, 0, 0, 0, 0.99939, 0.0348995, 0, -0.0348995, 0.99939, 0, 0, 0)
 near = 0.101
 far = 161.69
 

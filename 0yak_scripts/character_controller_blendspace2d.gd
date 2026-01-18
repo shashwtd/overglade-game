@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 @export_group("Movement")
 @export var walk_speed := 2.2
-@export var run_speed := 5.5
+@export var run_speed := 6.5
 @export var crouch_speed := 1.5
 @export var jump_velocity := 3.5
 @export var acceleration := 10.0
@@ -21,12 +21,14 @@ extends CharacterBody3D
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var brute: Node3D = $Brute
 @onready var anim_tree: AnimationTree = $Brute/AnimationTree
+@onready var crosshair: Control = $"/root/World/CanvasLayer/Crosshair"
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var blend_position := Vector2.ZERO
 var crouch_blend := 0.0
 var sprint_blend := 0.0
 var is_crouching := false
+var is_sprinting := false
 var jump_pending := false
 
 func _ready() -> void:
@@ -36,10 +38,8 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	# Mouse look
 	if event is InputEventMouseMotion:
-		# Rotate character left/right
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		
-		# Rotate camera up/down
 		camera_pivot.rotate_x(-event.relative.y * mouse_sensitivity)
 		camera_pivot.rotation.x = clamp(
 			camera_pivot.rotation.x,
@@ -70,11 +70,11 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("crouch"):
 		is_crouching = not is_crouching
 	
-	# Get input (local to character now)
+	# Get input
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	
 	# Sprint check
-	var is_sprinting := Input.is_action_pressed("sprint") and input_dir.y < 0 and not is_crouching
+	is_sprinting = Input.is_action_pressed("sprint") and input_dir.y < 0 and not is_crouching
 	
 	# Movement direction relative to character facing
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -108,6 +108,20 @@ func _physics_process(delta: float) -> void:
 	var target_crouch := 1.0 if is_crouching else 0.0
 	crouch_blend = lerpf(crouch_blend, target_crouch, crouch_blend_speed * delta)
 	anim_tree.set("parameters/CrouchBlend/blend_amount", crouch_blend)
+	
+	# Update crosshair state
+	update_crosshair()
+
+func update_crosshair() -> void:
+	if not crosshair:
+		return
+	
+	if is_sprinting:
+		crosshair.set_sprinting()
+	elif is_crouching:
+		crosshair.set_aiming()  # Crouching = more focused
+	else:
+		crosshair.set_normal()
 
 func _apply_jump() -> void:
 	jump_pending = false
