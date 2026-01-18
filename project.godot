@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/proton_scatter/plugin.cfg")
 
 [input]
 
