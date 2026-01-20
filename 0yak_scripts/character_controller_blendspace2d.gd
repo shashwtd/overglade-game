@@ -18,15 +18,9 @@ extends CharacterBody3D
 @export var sprint_blend_speed := 8.0
 @export var jump_anim_delay := 0.5
 
-@export_group("Attacks")
-@export var attack_normal := "Standingmeleeattack360high"
-@export var attack_sprint := "Standingmeleecomboattackver"
-@export var attack_crouch := "Standingmeleeattackdownward"
-
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var brute: Node3D = $Brute
 @onready var anim_tree: AnimationTree = $Brute/AnimationTree
-@onready var anim_player: AnimationPlayer = $Brute/AnimationPlayer
 @onready var crosshair: Control = get_tree().get_first_node_in_group("crosshair")
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -37,7 +31,6 @@ var is_crouching := false
 var is_sprinting := false
 var jump_pending := false
 var is_attacking := false
-var was_sprinting := false  # Track sprint state when attack started
 
 func _ready() -> void:
 	anim_tree.active = true
@@ -68,9 +61,14 @@ func _physics_process(delta: float) -> void:
 	# Get input
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	
-	# Sprint check (only when not attacking)
-	if not is_attacking:
-		is_sprinting = Input.is_action_pressed("sprint") and input_dir.y < 0 and not is_crouching
+	# Sprint check
+	is_sprinting = Input.is_action_pressed("sprint") and input_dir.y < 0 and not is_crouching and not is_attacking
+	
+	# Check if attack finished
+	if is_attacking:
+		var attack_active: bool = anim_tree.get("parameters/AttackOneShot/active")
+		if not attack_active:
+			is_attacking = false
 	
 	# Attack input
 	if Input.is_action_just_pressed("attack") and not is_attacking and is_on_floor():
@@ -92,7 +90,7 @@ func _physics_process(delta: float) -> void:
 	# Current speed
 	var current_speed := walk_speed
 	if is_attacking:
-		current_speed = walk_speed * 0.3
+		current_speed = walk_speed * 0.2
 	elif is_crouching:
 		current_speed = crouch_speed
 	elif is_sprinting:
@@ -108,46 +106,24 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
-	# Only update animation tree when not attacking
-	if not is_attacking:
-		var target_blend := Vector2(input_dir.x, -input_dir.y)
-		blend_position = blend_position.lerp(target_blend, blend_speed * delta)
-		anim_tree.set("parameters/Locomotion/blend_position", blend_position)
-		
-		var target_sprint := 1.0 if is_sprinting else 0.0
-		sprint_blend = lerpf(sprint_blend, target_sprint, sprint_blend_speed * delta)
-		anim_tree.set("parameters/WalkRunBlend/blend_amount", sprint_blend)
-		
-		var target_crouch := 1.0 if is_crouching else 0.0
-		crouch_blend = lerpf(crouch_blend, target_crouch, crouch_blend_speed * delta)
-		anim_tree.set("parameters/CrouchBlend/blend_amount", crouch_blend)
+	# Animation blends
+	var target_blend := Vector2(input_dir.x, -input_dir.y)
+	blend_position = blend_position.lerp(target_blend, blend_speed * delta)
+	anim_tree.set("parameters/Locomotion/blend_position", blend_position)
+	
+	var target_sprint := 1.0 if is_sprinting else 0.0
+	sprint_blend = lerpf(sprint_blend, target_sprint, sprint_blend_speed * delta)
+	anim_tree.set("parameters/WalkRunBlend/blend_amount", sprint_blend)
+	
+	var target_crouch := 1.0 if is_crouching else 0.0
+	crouch_blend = lerpf(crouch_blend, target_crouch, crouch_blend_speed * delta)
+	anim_tree.set("parameters/CrouchBlend/blend_amount", crouch_blend)
 	
 	update_crosshair()
 
 func start_attack() -> void:
 	is_attacking = true
-	was_sprinting = is_sprinting  # Remember if we were sprinting
-	
-	# Pick attack based on state
-	var attack_anim := attack_normal
-	if is_crouching:
-		attack_anim = attack_crouch
-	elif was_sprinting:
-		attack_anim = attack_sprint
-	
-	# Disable AnimationTree, use AnimationPlayer directly
-	anim_tree.active = false
-	anim_player.stop()
-	anim_player.play(attack_anim)
-	
-	# Wait for animation to finish
-	var anim_length := anim_player.get_animation(attack_anim).length
-	get_tree().create_timer(anim_length).timeout.connect(_end_attack)
-
-func _end_attack() -> void:
-	is_attacking = false
-	# Re-enable AnimationTree
-	anim_tree.active = true
+	anim_tree.set("parameters/AttackOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 func _apply_jump() -> void:
 	jump_pending = false
