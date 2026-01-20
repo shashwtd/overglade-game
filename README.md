@@ -1,8 +1,8 @@
-Overglade
+AXE HUNTER
 =========
 
-Overglade is a 2D game built using Godot.  
-The project focuses on clean mechanics, responsive controls, and smooth gameplay.
+Axe Hunter is a 3D game built using Godot.  
+The game is fun !!
 
 Built With
 ----------
