@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dc8148yh2xc30"]
+[gd_scene load_steps=8 format=3 uid="uid://dc8148yh2xc30"]
 
 [ext_resource type="Script" uid="uid://k7jmo1u0aece" path="res://0yak_scripts/enemy_script.gd" id="1_gyk55"]
+[ext_resource type="AudioStream" uid="uid://6252ksrw8foj" path="res://audio/damage-ouch.mp3" id="2_0gav5"]
+[ext_resource type="AudioStream" uid="uid://cy035wwiosy4q" path="res://audio/bass-drop.mp3" id="2_1oqcl"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_1oqcl"]
 
@@ -31,3 +33,11 @@ shape = SubResource("CapsuleShape3D_gyk55")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_gyk55")
+
+[node name="AudioHit" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_0gav5")
+volume_db = -10.0
+
+[node name="AudioDeath" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_1oqcl")
+volume_db = -5.0

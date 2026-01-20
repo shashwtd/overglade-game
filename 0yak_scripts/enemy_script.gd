@@ -6,11 +6,13 @@ extends CharacterBody3D
 
 @onready var mesh: MeshInstance3D = $MeshInstance3D
 @onready var health_bar: Sprite3D = $HealthBar
+@onready var audio_hit: AudioStreamPlayer3D = $AudioHit
+@onready var audio_death: AudioStreamPlayer3D = $AudioDeath
 
 var health: float
 var original_material: StandardMaterial3D
-var wobble_time := 0.0
 var is_wobbling := false
+var wobble_time := 0.0
 
 func _ready() -> void:
 	health = max_health
@@ -65,6 +67,11 @@ func take_damage(amount: float) -> void:
 	update_health_bar()
 	start_wobble()
 	
+	# Play hit sound only if NOT a killing blow
+	if health > 0 and audio_hit:
+		audio_hit.pitch_scale = randf_range(0.9, 1.1)
+		audio_hit.play()
+	
 	await get_tree().create_timer(0.05).timeout
 	flash_hit()
 	
@@ -81,4 +88,10 @@ func flash_hit() -> void:
 	original_material.albedo_color = Color(0.5, 0.1, 0.1)
 
 func die() -> void:
+	var sound := AudioStreamPlayer.new()
+	sound.stream = preload("res://audio/bass-drop.mp3")
+	get_tree().root.add_child(sound)
+	sound.play()
+	sound.finished.connect(sound.queue_free)
+	
 	queue_free()
