@@ -5,21 +5,16 @@
 [ext_resource type="AudioStream" uid="uid://bpssw5qe4y57j" path="res://audio/ambient-wind.mp3" id="3_3byhr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
-radius = 0.24
-height = 2.2
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 physics_interpolation_mode = 2
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+collision_mask = 6
 script = ExtResource("1_4flbx")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08865, 0)
-shape = SubResource("CapsuleShape3D_sh265")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 physics_interpolation_mode = 2
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38906, 1.86146, -1.37343)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.861, -1.373)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
 spring_length = 3.0
@@ -36,3 +31,7 @@ far = 161.69
 stream = ExtResource("3_3byhr")
 volume_db = -15.0
 autoplay = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_sh265")

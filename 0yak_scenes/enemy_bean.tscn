@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dc8148yh2xc30"]
+
+[ext_resource type="Script" uid="uid://k7jmo1u0aece" path="res://0yak_scripts/enemy_script.gd" id="1_gyk55"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1oqcl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyk55"]
+albedo_color = Color(0.545098, 0, 0, 1)
+emission_enabled = true
+emission = Color(0.2, 0, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gyk55"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gyk55"]
+
+[node name="EnemyBean" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_gyk55")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_1oqcl")
+surface_material_override/0 = SubResource("StandardMaterial3D_gyk55")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_gyk55")
+
+[node name="HealthBar" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_gyk55")
