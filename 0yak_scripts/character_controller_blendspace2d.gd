@@ -127,9 +127,22 @@ func update_crosshair() -> void:
 	if not crosshair:
 		return
 	
-	if is_sprinting:
-		crosshair.set_sprinting()
-	elif is_crouching:
-		crosshair.set_aiming()
+	# Check if aiming at enemy
+	var space_state := get_world_3d().direct_space_state
+	var screen_center := get_viewport().get_visible_rect().size / 2
+	var from := camera.project_ray_origin(screen_center)
+	var to := from + camera.project_ray_normal(screen_center) * attack_range
+	
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	query.exclude = [self]
+	query.collision_mask = 2
+	
+	var result := space_state.intersect_ray(query)
+	
+	if result and result.collider.has_method("take_damage"):
+		if is_crouching:
+			crosshair.set_aiming()
+		else:
+			crosshair.set_normal()
 	else:
-		crosshair.set_normal()
+		crosshair.hide_crosshair()

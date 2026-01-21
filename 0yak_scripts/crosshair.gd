@@ -26,7 +26,7 @@ func _draw() -> void:
 	
 	match style:
 		CrosshairStyle.DOT:
-			draw_circle(center, 3.0 * s, crosshair_color)
+			draw_circle(center, 2.5 * s, crosshair_color)
 		
 		CrosshairStyle.CROSS:
 			# Only scale cross based on state
