@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://btc1nikv64jww"]
+[gd_scene load_steps=6 format=3 uid="uid://btc1nikv64jww"]
 
 [ext_resource type="Script" uid="uid://cf2aa2462xmtn" path="res://0yak_scripts/character_controller_blendspace2d.gd" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://ribk58dv76sm" path="res://0yak_scenes/brute.tscn" id="2_hgpkt"]
+[ext_resource type="Script" uid="uid://clprq4ebb2uje" path="res://0yak_scripts/camera_pivot.gd" id="2_ufibj"]
 [ext_resource type="AudioStream" uid="uid://bpssw5qe4y57j" path="res://audio/ambient-wind.mp3" id="3_3byhr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
@@ -14,14 +15,17 @@ script = ExtResource("1_4flbx")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 physics_interpolation_mode = 2
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.861, -1.373)
+script = ExtResource("2_ufibj")
+pitch_min = -30.0
+pitch_max = 45.0
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
-spring_length = 3.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+spring_length = 3.5
 margin = 0.2
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
-transform = Transform3D(1, 0, 0, 0, 0.99939, 0.0348995, 0, -0.0348995, 0.99939, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0)
 near = 0.101
 far = 161.69
 

@@ -7,11 +7,6 @@ extends CharacterBody3D
 @export var jump_velocity := 3.5
 @export var acceleration := 10.0
 
-@export_group("Mouse")
-@export var mouse_sensitivity := 0.003
-@export var camera_pitch_min := -89.0
-@export var camera_pitch_max := 89.0
-
 @export_group("Animation")
 @export var blend_speed := 8.0
 @export var crouch_blend_speed := 6.0
@@ -24,7 +19,6 @@ extends CharacterBody3D
 @export var attack_range := 4.5
 @export var attack_hit_percent := 0.4
 
-@onready var camera_pivot: Node3D = $CameraPivot
 @onready var camera: Camera3D = $CameraPivot/SpringArm3D/Camera3D
 @onready var brute: Node3D = $Brute
 @onready var anim_tree: AnimationTree = $Brute/AnimationTree
@@ -41,24 +35,6 @@ var is_attacking := false
 
 func _ready() -> void:
 	anim_tree.active = true
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		rotate_y(-event.relative.x * mouse_sensitivity)
-		
-		camera_pivot.rotate_x(-event.relative.y * mouse_sensitivity)
-		camera_pivot.rotation.x = clamp(
-			camera_pivot.rotation.x,
-			deg_to_rad(camera_pitch_min),
-			deg_to_rad(camera_pitch_max)
-		)
-	
-	if event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

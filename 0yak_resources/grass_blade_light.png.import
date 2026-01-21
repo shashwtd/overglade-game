@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4gepg1fbglr0"
 path.s3tc="res://.godot/imported/grass_blade_light.png-8657555a9fdb9e17aa86598fe9bc060d.s3tc.ctex"
+path.etc2="res://.godot/imported/grass_blade_light.png-8657555a9fdb9e17aa86598fe9bc060d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://0yak_resources/grass_blade_light.png"
-dest_files=["res://.godot/imported/grass_blade_light.png-8657555a9fdb9e17aa86598fe9bc060d.s3tc.ctex"]
+dest_files=["res://.godot/imported/grass_blade_light.png-8657555a9fdb9e17aa86598fe9bc060d.s3tc.ctex", "res://.godot/imported/grass_blade_light.png-8657555a9fdb9e17aa86598fe9bc060d.etc2.ctex"]
 
 [params]
 

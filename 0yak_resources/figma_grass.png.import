@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bp3qbrarcfo42"
 path.s3tc="res://.godot/imported/figma_grass.png-4984928993eb96fb4667e5e87071120a.s3tc.ctex"
+path.etc2="res://.godot/imported/figma_grass.png-4984928993eb96fb4667e5e87071120a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://0yak_resources/figma_grass.png"
-dest_files=["res://.godot/imported/figma_grass.png-4984928993eb96fb4667e5e87071120a.s3tc.ctex"]
+dest_files=["res://.godot/imported/figma_grass.png-4984928993eb96fb4667e5e87071120a.s3tc.ctex", "res://.godot/imported/figma_grass.png-4984928993eb96fb4667e5e87071120a.etc2.ctex"]
 
 [params]
 
