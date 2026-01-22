@@ -16,9 +16,13 @@ Getting Started
 3. Import the project folder
 4. Press Play
 
-Project Status
+Project Credits
 --------------
-Work in progress.
+*Sky done using https://github.com/TokisanGames/Sky3DA*
+This allowed me to have different skies based on time of the day and lots of other cool sky features.
+
+
+
 
 License
 -------
