@@ -1,15 +1,17 @@
-[gd_scene load_steps=14 format=3 uid="uid://b7n53mfinpxkw"]
+[gd_scene load_steps=16 format=3 uid="uid://b7n53mfinpxkw"]
 
 [ext_resource type="Script" uid="uid://bnb6pw5dx6uhn" path="res://0yak_scenes/ui/pause_menu.gd" id="1_6p1hb"]
 [ext_resource type="Shader" uid="uid://bolu86yihf1xe" path="res://0yak_scenes/ui/pause_shader.gdshader" id="1_emhbf"]
 [ext_resource type="FontFile" uid="uid://ch6l2owvyg8d" path="res://0yak__assets/fonts/DalekPinpointBold.ttf" id="3_gdce8"]
 [ext_resource type="FontFile" uid="uid://dfd6bwkg8val1" path="res://0yak__assets/fonts/Coolvetica Rg.otf" id="4_2fqro"]
+[ext_resource type="AudioStream" uid="uid://duwlblvw2k2iv" path="res://audio/woosh.mp3" id="5_2fqro"]
+[ext_resource type="AudioStream" uid="uid://t4qrw4ri4brm" path="res://audio/woosh2.mp3" id="6_oeba8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_joibl"]
 shader = ExtResource("1_emhbf")
 shader_parameter/progress = 1.0
 shader_parameter/desaturation = 0.5
-shader_parameter/blur_strength = 4.0
+shader_parameter/blur_strength = 4.5
 shader_parameter/darkness = 0.55
 shader_parameter/vignette_intensity = 0.1
 shader_parameter/vignette_smoothness = 0.371
@@ -37,7 +39,7 @@ subpixel_positioning = 0
 default_font = SubResource("SystemFont_1vkh8")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1gfr"]
-bg_color = Color(0, 0, 0, 0.533333)
+bg_color = Color(0, 0, 0, 0.654902)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfmpd"]
 content_margin_left = 0.0
@@ -58,6 +60,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6p1hb")
+transition_duration = 0.5
 
 [node name="ShaderOverlay" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_joibl")
@@ -68,6 +71,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -327.0
+offset_top = -215.0
+offset_right = 323.0
+offset_bottom = 206.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.39, 0.39, 0.39, 0.282353)
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_direction = 1
 layout_mode = 1
@@ -77,9 +95,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -284.5
-offset_top = -223.5
+offset_top = -168.0
 offset_right = 284.5
-offset_bottom = 223.5
+offset_bottom = 168.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
@@ -153,3 +171,15 @@ theme_override_fonts/font = ExtResource("4_2fqro")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxEmpty_gdce8")
 text = "v0.1.2"
+
+[node name="PauseSFX" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("5_2fqro")
+volume_db = -19.0
+bus = &"UI"
+
+[node name="PlaySFX" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("6_oeba8")
+volume_db = -19.0
+bus = &"UI"

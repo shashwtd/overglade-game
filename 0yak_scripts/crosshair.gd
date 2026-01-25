@@ -37,12 +37,12 @@ func _draw() -> void:
 				CrosshairState.SPRINTING:
 					s *= 1.4
 			
-			var len := 10.0 * s
+			var length := 10.0 * s
 			var gap := 4.0 * s
-			draw_line(center + Vector2(0, -gap - len), center + Vector2(0, -gap), crosshair_color, line_thickness)
-			draw_line(center + Vector2(0, gap), center + Vector2(0, gap + len), crosshair_color, line_thickness)
-			draw_line(center + Vector2(-gap - len, 0), center + Vector2(-gap, 0), crosshair_color, line_thickness)
-			draw_line(center + Vector2(gap, 0), center + Vector2(gap + len, 0), crosshair_color, line_thickness)
+			draw_line(center + Vector2(0, -gap - length), center + Vector2(0, -gap), crosshair_color, line_thickness)
+			draw_line(center + Vector2(0, gap), center + Vector2(0, gap + length), crosshair_color, line_thickness)
+			draw_line(center + Vector2(-gap - length, 0), center + Vector2(-gap, 0), crosshair_color, line_thickness)
+			draw_line(center + Vector2(gap, 0), center + Vector2(gap + length, 0), crosshair_color, line_thickness)
 
 func set_normal() -> void:
 	current_state = CrosshairState.NORMAL

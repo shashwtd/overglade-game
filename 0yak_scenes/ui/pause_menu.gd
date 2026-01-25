@@ -4,8 +4,11 @@ extends Control
 @onready var vbox: VBoxContainer = $VBoxContainer
 @onready var resume_button: Button = $VBoxContainer/ResumeButton
 @onready var quit_button: Button = $VBoxContainer/QuitButton
+@onready var pause_sfx: AudioStreamPlayer = $PauseSFX
+@onready var play_sfx: AudioStreamPlayer = $PlaySFX
 
 @export var transition_duration := 0.3
+@export var menu_delay := 0.08
 
 var shader_material: ShaderMaterial
 var is_paused := false
@@ -14,25 +17,20 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false
 	
-	# Setup shader
 	shader_material = shader_overlay.material as ShaderMaterial
 	shader_material.set_shader_parameter("progress", 0.0)
 	
-	# Hide menu elements initially
 	vbox.modulate.a = 0.0
 	
-	# Connect buttons
 	resume_button.pressed.connect(_on_resume_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		# Don't allow pause if main menu exists
 		var main_menu := get_tree().get_first_node_in_group("main_menu")
 		if main_menu:
 			return
 		
-		# Don't allow pause if player input not enabled
 		var player := get_tree().get_first_node_in_group("player")
 		if player and not player.input_enabled:
 			return
@@ -41,8 +39,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			resume_game()
 		else:
 			pause_game()
+		
 		get_viewport().set_input_as_handled()
-
 
 func pause_game() -> void:
 	is_paused = true
@@ -50,27 +48,49 @@ func pause_game() -> void:
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
-	# Animate shader and menu
+	play_pause_open_sfx()
+	
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_parallel(true)
 	
-	tween.tween_method(set_shader_progress, 0.0, 1.0, transition_duration)
-	tween.tween_property(vbox, "modulate:a", 1.0, transition_duration)
+	tween.tween_method(
+		set_shader_progress,
+		0.0,
+		1.0,
+		transition_duration
+	)
+	
+	tween.parallel().tween_property(
+		vbox,
+		"modulate:a",
+		1.0,
+		transition_duration * 0.8
+	).set_delay(menu_delay)
 
 func resume_game() -> void:
 	is_paused = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
-	# Animate out
+	play_pause_close_sfx()
+	
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_IN)
 	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_parallel(true)
 	
-	tween.tween_method(set_shader_progress, 1.0, 0.0, transition_duration)
-	tween.tween_property(vbox, "modulate:a", 0.0, transition_duration)
+	tween.tween_property(
+		vbox,
+		"modulate:a",
+		0.0,
+		transition_duration * 0.6
+	)
+	
+	tween.parallel().tween_method(
+		set_shader_progress,
+		1.0,
+		0.0,
+		transition_duration
+	).set_delay(menu_delay)
 	
 	tween.chain().tween_callback(func():
 		visible = false
@@ -79,6 +99,18 @@ func resume_game() -> void:
 
 func set_shader_progress(value: float) -> void:
 	shader_material.set_shader_parameter("progress", value)
+
+func play_pause_open_sfx():
+	pause_sfx.stop()
+	play_sfx.stop()
+	pause_sfx.pitch_scale = 1.5
+	pause_sfx.play()
+
+func play_pause_close_sfx():
+	pause_sfx.stop()
+	play_sfx.stop()
+	play_sfx.pitch_scale = 1.2
+	play_sfx.play()
 
 func _on_resume_pressed() -> void:
 	resume_game()

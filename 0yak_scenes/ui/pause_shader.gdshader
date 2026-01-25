@@ -4,7 +4,7 @@ uniform float progress : hint_range(0.0, 1.0) = 0.0;
 
 // Visual controls
 uniform float desaturation : hint_range(0.0, 1.0) = 0.8;
-uniform float blur_strength : hint_range(0.0, 4.0) = 1.5;
+uniform float blur_strength : hint_range(0.0, 8.0) = 1.5;
 uniform float darkness : hint_range(0.0, 1.0) = 0.55;
 
 uniform float vignette_intensity : hint_range(0.0, 1.0) = 0.5;
