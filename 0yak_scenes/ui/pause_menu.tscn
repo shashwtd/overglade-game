@@ -1,0 +1,155 @@
+[gd_scene load_steps=14 format=3 uid="uid://b7n53mfinpxkw"]
+
+[ext_resource type="Script" uid="uid://bnb6pw5dx6uhn" path="res://0yak_scenes/ui/pause_menu.gd" id="1_6p1hb"]
+[ext_resource type="Shader" uid="uid://bolu86yihf1xe" path="res://0yak_scenes/ui/pause_shader.gdshader" id="1_emhbf"]
+[ext_resource type="FontFile" uid="uid://ch6l2owvyg8d" path="res://0yak__assets/fonts/DalekPinpointBold.ttf" id="3_gdce8"]
+[ext_resource type="FontFile" uid="uid://dfd6bwkg8val1" path="res://0yak__assets/fonts/Coolvetica Rg.otf" id="4_2fqro"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_joibl"]
+shader = ExtResource("1_emhbf")
+shader_parameter/progress = 1.0
+shader_parameter/desaturation = 0.5
+shader_parameter/blur_strength = 4.0
+shader_parameter/darkness = 0.55
+shader_parameter/vignette_intensity = 0.1
+shader_parameter/vignette_smoothness = 0.371
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2fqro"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_gdce8"]
+color = Color(0.43, 0.43, 0.43, 1)
+thickness = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gdce8"]
+content_margin_left = 0.0
+content_margin_top = 32.0
+content_margin_right = 0.0
+content_margin_bottom = 32.0
+
+[sub_resource type="SystemFont" id="SystemFont_1vkh8"]
+subpixel_positioning = 0
+
+[sub_resource type="Theme" id="Theme_ia2b5"]
+default_font = SubResource("SystemFont_1vkh8")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b1gfr"]
+bg_color = Color(0, 0, 0, 0.533333)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfmpd"]
+content_margin_left = 0.0
+content_margin_top = 16.0
+content_margin_right = 0.0
+content_margin_bottom = 16.0
+bg_color = Color(0, 0, 0, 0.266667)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gdce8"]
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6p1hb")
+
+[node name="ShaderOverlay" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_joibl")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -284.5
+offset_top = -223.5
+offset_right = 284.5
+offset_bottom = 223.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="GameNameLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_gdce8")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxTexture_2fqro")
+text = "AXE HUNTER"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -48
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxLine_gdce8")
+
+[node name="PausedLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_colors/font_color = Color(1, 1, 1, 0.435294)
+theme_override_fonts/font = ExtResource("3_gdce8")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxTexture_gdce8")
+text = "@@@"
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxLine_gdce8")
+
+[node name="ResumeButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme = SubResource("Theme_ia2b5")
+theme_override_fonts/font = ExtResource("4_2fqro")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxFlat_b1gfr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kfmpd")
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme = SubResource("Theme_ia2b5")
+theme_override_fonts/font = ExtResource("4_2fqro")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxFlat_b1gfr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kfmpd")
+text = "Exit Game"
+
+[node name="Version" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.513726)
+theme_override_fonts/font = ExtResource("4_2fqro")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gdce8")
+text = "v0.1.2"

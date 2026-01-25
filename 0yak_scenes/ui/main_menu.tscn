@@ -10,11 +10,11 @@ content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 64.0
 
-[sub_resource type="SystemFont" id="SystemFont_1vkh8"]
+[sub_resource type="SystemFont" id="SystemFont_f0de3"]
 subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_1vkh8"]
-default_font = SubResource("SystemFont_1vkh8")
+default_font = SubResource("SystemFont_f0de3")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4hvk"]
 bg_color = Color(0, 0, 0, 0.533333)
@@ -48,7 +48,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.03, 0.03, 0.03, 0.439216)
 
-[node name="VerticalCenterContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_direction = 1
 layout_mode = 1
 anchors_preset = 8
@@ -64,7 +64,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
 
-[node name="Label" type="Label" parent="VerticalCenterContainer"]
+[node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("1_ttvqm")
@@ -73,7 +73,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_f0de3")
 text = "AXE HUNTER"
 vertical_alignment = 1
 
-[node name="StartButton" type="Button" parent="VerticalCenterContainer"]
+[node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme = SubResource("Theme_1vkh8")
@@ -83,7 +83,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_l4hvk")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0jawg")
 text = "Start Game"
 
-[node name="ExitButton" type="Button" parent="VerticalCenterContainer"]
+[node name="ExitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme = SubResource("Theme_1vkh8")

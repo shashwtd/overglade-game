@@ -1,7 +1,7 @@
 extends Control
 
-@onready var start_button: Button = $"VerticalCenterContainer/StartButton"
-@onready var exit_button: Button = $"VerticalCenterContainer/ExitButton"
+@onready var start_button: Button = $"VBoxContainer/StartButton"
+@onready var exit_button: Button = $"VBoxContainer/ExitButton"
 
 @export var fade_duration := 0.5
 
