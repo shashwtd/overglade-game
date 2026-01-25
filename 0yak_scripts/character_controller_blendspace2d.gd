@@ -32,13 +32,22 @@ var is_crouching := false
 var is_sprinting := false
 var jump_pending := false
 var is_attacking := false
+var input_enabled := false
 
 func _ready() -> void:
 	anim_tree.active = true
 
+func enable_input() -> void:
+	input_enabled = true
+
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+	
+	# Skip input processing if disabled
+	if not input_enabled:
+		move_and_slide()
+		return
 	
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	
@@ -127,7 +136,6 @@ func update_crosshair() -> void:
 	if not crosshair:
 		return
 	
-	# Check if aiming at enemy
 	var space_state := get_world_3d().direct_space_state
 	var screen_center := get_viewport().get_visible_rect().size / 2
 	var from := camera.project_ray_origin(screen_center)
