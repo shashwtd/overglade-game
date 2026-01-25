@@ -32,4 +32,10 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"nodes": {
+"PATH:Tree_lp_11": {
+"generate/physics": true
+}
+}
+}

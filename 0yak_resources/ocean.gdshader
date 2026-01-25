@@ -19,7 +19,7 @@ void vertex() {
 	float wave3 = sin((VERTEX.x + VERTEX.z) * wave_scale * 0.5 + TIME * wave_speed * 1.1) * 0.5;
 
 	float wave = wave1 + wave2 + wave3;
-	VERTEX.y += wave * wave_height;
+	VERTEX.y += wave * 0.3 *  wave_height;
 }
 
 void fragment() {

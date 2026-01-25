@@ -1,9 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmstox0jy7qg7"]
+[gd_scene load_steps=3 format=3 uid="uid://cmstox0jy7qg7"]
 
 [ext_resource type="ArrayMesh" uid="uid://bsmwenw70leif" path="res://0yak__assets/low_poly_tree/Lowpoly_tree_sample.obj" id="1_es7w3"]
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_es7w3"]
+height = 25.0
+radius = 4.273
+
+[node name="Tree" type="Node3D"]
 
 [node name="LowpolyTreeSample" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.12, 0)
 mesh = ExtResource("1_es7w3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="LowpolyTreeSample"]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LowpolyTreeSample/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.99, 0)
+shape = SubResource("CylinderShape3D_es7w3")
