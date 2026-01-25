@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://dfd6bwkg8val1" path="res://0yak__assets/fonts/Coolvetica Rg.otf" id="2_f0de3"]
 
 [sub_resource type="SystemFont" id="SystemFont_1vkh8"]
+subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_1vkh8"]
 default_font = SubResource("SystemFont_1vkh8")
